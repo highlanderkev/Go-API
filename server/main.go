@@ -1,6 +1,8 @@
 package main
 
 import(
+    "os"
+    "fmt"
     "net/http"
     "github.com/gorilla/mux"
 )
@@ -8,12 +10,19 @@ import(
 func main(){
     r := mux.NewRouter()
     
-    r.Handle("/", http.FileServer(http.Dir("./views/")))
+    //r.Handle("/", http.FileServer(http.Dir("./views/")))
     
-    r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
+    r.Handle("/", NotImplemented)
     
-    http.ListenAndServe(":3000", r)
+    //r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
     
+    var port = os.Getenv("PORT")
+    
+    fmt.Println("PORT:", port)
+    
+    http.ListenAndServe(":" + port, r)
+    
+    //http.ListenAndServe(":3000", r)
     
     r.Handle("/status", NotImplemented).Methods("GET")
     r.Handle("/products", NotImplemented).Methods("GET")
