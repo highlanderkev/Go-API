@@ -1,0 +1,13 @@
+{
+  "name": "api.kevinpatrickwestropp.com",
+  "description": "API for personal website.",
+  "keywords": [
+    "kpw",
+    "go",
+    "example"
+  ],
+  "image": "heroku/go:1.6",
+  "mount_dir": "src/github.com/highlanderkev/api",
+  "website": "http://github.com/highlanderkev/api",
+  "repository": "http://github.com/highlanderkev/api"
+}
