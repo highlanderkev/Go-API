@@ -1,7 +1,6 @@
 package models
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -11,6 +10,6 @@ type Post struct {
 	SubTitle    string
 	Description string
 	Body        string
-	DatePosted  Time
-	DateUpdated Time
+	DatePosted  time.Time
+	DateUpdated time.Time
 }

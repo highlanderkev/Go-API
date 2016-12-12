@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/highlanderkev/api/models"
 	"log"
 	"net/http"
 	"os"
