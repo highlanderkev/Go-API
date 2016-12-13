@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/highlanderkev/api/handlers"
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	_ "github.com/lib/pq"
 	"log"
@@ -29,11 +28,6 @@ func main() {
 	fmt.Printf("Hello world\n")
 	ip := os.Getenv("IP")
 	port := os.Getenv("PORT")
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
