@@ -1,28 +1,14 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
+	"github.com/google/go-github/github"
 	"github.com/highlanderkev/api/handlers"
 	"github.com/labstack/echo"
-	_ "github.com/lib/pq"
+	"gopkg.in/zabawaba99/firego.v1"
 	"log"
 	"os"
 )
-
-func migrateDB(db *sql.DB) {
-	query := `
-	CREATE TABLE IF NOT EXISTS posts(
-		id INTEGER NOT NULL PRIMARY KEY,
-		title VARCHAR NOT NULL
-	);
-	`
-
-	_, err := db.Exec(query)
-	if err != nil {
-		log.Fatalf("Error migrating database: %q", err)
-	}
-}
 
 func main() {
 	fmt.Printf("Hello world\n")
@@ -33,16 +19,25 @@ func main() {
 	}
 	fmt.Println("PORT:", port, os.Getenv("DATABASE_URL"))
 
-	db, err2 := sql.Open("postgres", os.Getenv("DATABASE_URL"))
-	if err2 != nil {
-		log.Fatalf("Error opening database: %q", err2)
-	}
-	migrateDB(db)
+	f := firego.New("https://highlanderkev-github-io.firebaseio.com/", nil)
+	client := github.NewClient(nil)
+
+	// db := pg.Connect(&pg.Options{
+	// 	Addr:     os.Getenv("DATABASE_URL"),
+	// 	User:     os.Getenv("DATABASE_USER"),
+	// 	Password: os.Getenv("DATABASE_PASSWORD"),
+	// 	Database: os.Getenv("DATABASE")
+	// })
+	// migrateDB(db)
 
 	router := echo.New()
-	router.GET("/posts", handlers.GetPosts(db))
-	router.PUT("/posts", handlers.PutPost(db))
-	router.DELETE("/posts/:id", handlers.DeletePost(db))
+	router.GET("/", handlers.GetStatus())
+	router.GET("/status", handlers.GetStatus())
+	router.GET("/version", handlers.GetVersion())
+	router.GET("/repos", handlers.GetRepos(client))
+	router.GET("/posts", handlers.GetPosts(f))
+	//router.POST("/post", handlers.SavePost(db))
+	// router.DELETE("/posts/:id", handlers.DeletePost(db))
 
 	router.Start(ip + ":" + port)
 }
