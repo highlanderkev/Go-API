@@ -12,11 +12,24 @@ type RepoCollection struct {
 
 func GetRepos(client *github.Client) RepoCollection {
 	var repoCollection RepoCollection
-	repos, _, err := client.Repositories.List("highlanderkev", nil)
-	if err != nil {
-		log.Fatal(err)
+	options := getGithubRepoOptions()
+	for {
+		repos, resp, err := client.Repositories.List("highlanderkev", options)
+		if err != nil {
+			log.Fatal(err)
+		}
+		repoCollection.Repos = append(repoCollection.Repos, repos...)
+		if resp.NextPage == 0 {
+			break
+		}
+		options.ListOptions.Page = resp.NextPage
 	}
-	repoCollection.Repos = repos
-	fmt.Printf("%s\n", repoCollection.Repos)
+	//fmt.Printf("%s\n", repoCollection.Repos)
 	return repoCollection
+}
+
+func getGithubRepoOptions() *github.RepositoryListOptions {
+	return &github.RepositoryListOptions{
+		ListOptions: github.ListOptions{PerPage: 10},
+	}
 }
