@@ -24,7 +24,7 @@ func GetRepos(client *github.Client) RepoCollection {
 		}
 		options.ListOptions.Page = resp.NextPage
 	}
-	//fmt.Printf("%s\n", repoCollection.Repos)
+	fmt.Printf("%s\n", repoCollection.Repos)
 	return repoCollection
 }
 
