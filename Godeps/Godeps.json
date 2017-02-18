@@ -4,6 +4,11 @@
 	"GodepVersion": "v75",
 	"Deps": [
 		{
+			"ImportPath": "github.com/dgrijalva/jwt-go",
+			"Comment": "v3.0.0-17-g2268707",
+			"Rev": "2268707a8f0843315e2004ee4f1d021dc08baedf"
+		},
+		{
 			"ImportPath": "github.com/google/go-github/github",
 			"Rev": "9cb398ca482c8f7e59eecc0f6caf669a6256b01a"
 		},
@@ -13,8 +18,18 @@
 		},
 		{
 			"ImportPath": "github.com/labstack/echo",
-			"Comment": "v3.0.3-11-g70b5cfb",
-			"Rev": "70b5cfbb26c70668255af545f743b2bd99e6e482"
+			"Comment": "v3.0.3-79-g0b53f39",
+			"Rev": "0b53f397ad7709a27d37500a67735c0a639b5c38"
+		},
+		{
+			"ImportPath": "github.com/labstack/echo/middleware",
+			"Comment": "v3.0.3-79-g0b53f39",
+			"Rev": "0b53f397ad7709a27d37500a67735c0a639b5c38"
+		},
+		{
+			"ImportPath": "github.com/labstack/gommon/bytes",
+			"Comment": "v0.1.0-2-g447fe74",
+			"Rev": "447fe7433567c785af957e549aadae2bf2000071"
 		},
 		{
 			"ImportPath": "github.com/labstack/gommon/color",
@@ -27,6 +42,11 @@
 			"Rev": "447fe7433567c785af957e549aadae2bf2000071"
 		},
 		{
+			"ImportPath": "github.com/labstack/gommon/random",
+			"Comment": "v0.1.0-2-g447fe74",
+			"Rev": "447fe7433567c785af957e549aadae2bf2000071"
+		},
+		{
 			"ImportPath": "github.com/mattn/go-colorable",
 			"Comment": "v0.0.6-9-gd228849",
 			"Rev": "d228849504861217f796da67fae4f6e347643f15"
@@ -34,11 +54,6 @@
 		{
 			"ImportPath": "github.com/mattn/go-isatty",
 			"Rev": "30a891c33c7cde7b02a981314b4228ec99380cca"
-		},
-		{
-			"ImportPath": "github.com/tylerb/graceful",
-			"Comment": "v1.2.13-2-g4df1190",
-			"Rev": "4df1190835320af7076dfcf27b3d071fd3612caf"
 		},
 		{
 			"ImportPath": "github.com/valyala/fasttemplate",
