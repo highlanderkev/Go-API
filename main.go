@@ -26,8 +26,8 @@ func setupRouter(clients Clients) *echo.Echo {
 	router.Use(middleware.Recover())
 
 	router.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"https://kevinpatrickwestropp.com", "https://kevinpatrickwestropp.org", "https://c9users.io"},
-		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET},
 	}))
 
 	router.GET("/", handlers.GetStatus())
