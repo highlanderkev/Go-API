@@ -35,6 +35,7 @@ func setupRouter(clients Clients) *echo.Echo {
 	router.GET("/version", handlers.GetVersion())
 	router.GET("/repos", handlers.GetRepos(clients.ghClient))
 	router.GET("/posts", handlers.GetPosts(clients.fbClient))
+	router.GET("/gists", handlers.GetGists(clients.ghClient))
 	return router
 }
 

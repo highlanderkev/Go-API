@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	firego "gopkg.in/zabawaba99/firego.v1"
 	"log"
 )
@@ -20,6 +19,5 @@ func GetPosts(f *firego.Firebase) PostCollection {
 	if err := f.Value(&postCollection.Posts); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%s\n", postCollection.Posts)
 	return postCollection
 }
