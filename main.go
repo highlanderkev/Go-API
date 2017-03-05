@@ -5,10 +5,19 @@ import (
 	"github.com/highlanderkev/api/handlers"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"golang.org/x/oauth2"
 	"gopkg.in/zabawaba99/firego.v1"
 	"log"
 	"os"
 )
+
+var (
+	personalAccessToken = os.Getenv("GITHUB_PERSONAL_ACCESS_TOKEN")
+)
+
+type TokenSource struct {
+	AccessToken string
+}
 
 type Server struct {
 	ip   string
@@ -39,6 +48,24 @@ func setupRouter(clients Clients) *echo.Echo {
 	return router
 }
 
+func (t *TokenSource) Token() (*oauth2.Token, error) {
+	token := &oauth2.Token{
+		AccessToken: t.AccessToken,
+	}
+	return token, nil
+}
+
+func setupClients() Clients {
+	tokenSource := &TokenSource{
+		AccessToken: personalAccessToken,
+	}
+	oauthClient := oauth2.NewClient(oauth2.NoContext, tokenSource)
+	return Clients{
+		ghClient: github.NewClient(oauthClient),
+		fbClient: firego.New("https://highlanderkev-github-io.firebaseio.com/", nil),
+	}
+}
+
 func main() {
 	server := Server{
 		ip:   os.Getenv("IP"),
@@ -49,11 +76,7 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	clients := Clients{
-		ghClient: github.NewClient(nil),
-		fbClient: firego.New("https://highlanderkev-github-io.firebaseio.com/", nil),
-	}
-
+	clients := setupClients()
 	router := setupRouter(clients)
 	router.Start(server.ip + ":" + server.port)
 }
