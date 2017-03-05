@@ -15,6 +15,9 @@ func GetRepos(client *github.Client) RepoCollection {
 	for {
 		repos, resp, err := client.Repositories.List("highlanderkev", options)
 		if err != nil {
+			if _, ok := err.(*github.RateLimitError); ok {
+				log.Fatal("Github Rate Limit Hit.")
+			}
 			log.Fatal(err)
 		}
 		repoCollection.Repos = append(repoCollection.Repos, repos...)
